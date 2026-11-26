@@ -1,0 +1,34 @@
+{
+  "patterns": [
+    {
+      "name": "Function",
+      "description": "A reusable block of code that performs a specific task.",
+      "best_practice": "Use meaningful function names and keep functions focused."
+    },
+    {
+      "name": "Input Validation",
+      "description": "Checks whether input values are valid before processing.",
+      "best_practice": "Validate inputs and handle invalid values gracefully."
+    },
+    {
+      "name": "Exception Handling",
+      "description": "Handles runtime errors using try and except.",
+      "best_practice": "Catch specific exceptions instead of broad exceptions."
+    },
+    {
+      "name": "Code Reusability",
+      "description": "Avoids repeating the same logic.",
+      "best_practice": "Extract repeated logic into reusable functions."
+    },
+    {
+      "name": "Naming Conventions",
+      "description": "Uses clear and consistent names.",
+      "best_practice": "Use descriptive snake_case names in Python."
+    },
+    {
+      "name": "Type Hints",
+      "description": "Specifies expected input and return types.",
+      "best_practice": "Add type hints to improve readability."
+    }
+  ]
+}

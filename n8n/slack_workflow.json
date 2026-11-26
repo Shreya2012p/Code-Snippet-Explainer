@@ -1,0 +1,84 @@
+{
+  "name": "CodeWise AI - Verified Analysis to Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "codewise-analysis",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Receive CodeWise Report",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "codewise-analysis"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body ?? $input.first().json;\nconst a = body.analysis ?? {};\nconst v = a.verification ?? {};\nconst issues = (a.issues ?? []).slice(0, 5).map(x => `\u2022 ${String(x.severity ?? 'INFO').toUpperCase()}: ${x.issue}`).join('\\n') || 'None identified';\nconst steps = (a.steps ?? []).slice(0, 5).map((x, i) => `${i + 1}. ${x.title}: ${x.explanation}`).join('\\n') || 'Not provided';\nconst tests = (a.test_cases ?? []).slice(0, 3).map(x => `\u2022 ${x.name}: ${x.expected_behavior}`).join('\\n') || 'Not provided';\nconst lines = [\n  '*CodeWise AI \u2014 Code Intelligence Report*',\n  `*Language:* ${a.language ?? 'Unknown'}`,\n  `*Summary:* ${a.summary ?? 'No summary'}`,\n  `*Explanation:* ${a.explanation ?? 'Not provided'}`,\n  `*Walkthrough:*\\n${steps}`,\n  `*Improvement:* ${a.improvement ?? 'Not provided'}`,\n  `*Issues:*\\n${issues}`,\n  `*Suggested tests:*\\n${tests}`,\n  `*Agent verification:* ${v.status ?? 'Not available'}`,\n  `*Verification note:* ${v.note ?? 'Not provided'}`\n];\nreturn [{ json: { text: lines.join('\\n') } }];"
+      },
+      "id": "2",
+      "name": "Format Slack Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_SLACK_CHANNEL_ID",
+          "mode": "id"
+        },
+        "text": "={{ $json.text }}",
+        "otherOptions": {}
+      },
+      "id": "3",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        740,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Receive CodeWise Report": {
+      "main": [
+        [
+          {
+            "node": "Format Slack Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Slack Message": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1"
+}
