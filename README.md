@@ -1,4 +1,4 @@
-# CodeWise AI — Advanced Code Intelligence
+# Code Snippet Explainer
 
 CodeWise AI is a full-stack AI-assisted code analysis application. Paste a source-code snippet, choose its language and explanation depth, and receive a structured engineering report covering what the code does, how it is organized, possible issues, complexity assumptions, improvement suggestions, and test ideas.
 
