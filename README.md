@@ -287,6 +287,7 @@ On macOS/Linux, activate the environment with:
 ```bash
 source .venv/bin/activate
 ```
+<img width="900" height="805" alt="Screenshot 2026-11-25 155510" src="https://github.com/user-attachments/assets/0d722f4b-b1a5-46c6-8463-bb0335dc6027" />
 
 Backend URLs:
 
@@ -449,9 +450,6 @@ The included tests cover:
 - Flagging invalid proposed Python syntax.
 
 These tests do not evaluate the accuracy of LLM-generated explanations or prove semantic equivalence of suggested rewrites.
-
-<img width="900" height="805" alt="Screenshot 2026-11-25 155510" src="https://github.com/user-attachments/assets/274c3c72-f84a-4ce5-9ca7-6be7407c0a6c" />
-
 
 ## Configuration
 
